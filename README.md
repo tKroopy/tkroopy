@@ -18,7 +18,7 @@ free open source tkinter framework for grouping many small to medium application
                 hyperlink.py  > insert hyperlink into console
                 tab.py        > base class for all applications
                 table.py      > grid view of data
-            template.py  > use this as the template for creating your applications
+            template.py   > use this as the template for creating your applications
         LICENSE       > License GNU GPL 3.0
         setup.bat     > run this to execute the build script (windows)
         setup.py      > the build script, create executable version
