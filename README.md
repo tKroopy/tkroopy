@@ -1,10 +1,18 @@
 ## tkroopy
 
-Free open source tkinter framework for grouping many small to medium applications together.
+Free open source tkinter framework for grouping small to medium applications together.
+
+## Requirements
+
+tkroopy relies on a couple of additional modules:
+
+* [pyodbc](https://code.google.com/p/pyodbc/)
+* [setup tools](https://pypi.python.org/pypi/setuptools)
+* [py2exe](http://www.py2exe.org/) (windows)
 
 ## Use
 
-Copy the /src/template.py file into the /src/Applications/ direcotry and build your code ontop of this module. The file name needs to be the same as the initiating class name.
+Copy the /src/template.py file into the /src/Applications/ directory and build your code ontop of this module. The file name needs to be the same as the initiating class name.
 
 ## Directory Structure
 
