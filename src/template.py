@@ -21,7 +21,7 @@ except:
 
 log = logging.getLogger(__package__)
 
-class App_Template(tab.Tab):
+class Template(tab.Tab):
     """
     App Template - Enter a description of the Application here
     """
@@ -54,7 +54,7 @@ class App_Template(tab.Tab):
 
 if __name__ == '__main__':
     root = Tkinter.Tk()
-    main = App_Template(root, "App Template", basedir)
+    main = Template(root, "App Template", basedir)
     main.load()
     main.pack(expand="true", fill="both")
     root.mainloop()
