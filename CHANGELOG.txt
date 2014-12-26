@@ -1,3 +1,0 @@
-1.0
-- Fixed bug in table where links were not bound to their frame
-- Update vertical scrollbar when interior frame size changes.
