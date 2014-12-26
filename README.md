@@ -2,7 +2,7 @@
 
 Free open source tkinter framework for grouping small to medium applications together.
 
-## Requirements
+## Dependancies
 
 tkroopy relies on a couple of additional modules:
 
