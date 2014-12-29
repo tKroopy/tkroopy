@@ -12,7 +12,7 @@ import datetime
 
 # Switch True/False
 # - test = True will compile the application into
-test = False
+test = True
 name = 'tkroopy'
 
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

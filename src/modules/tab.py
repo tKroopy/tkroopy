@@ -2,6 +2,8 @@
 import Tkinter
 import logging
 import pyodbc
+import os
+from pydal import DAL, Field
 
 log = logging.getLogger(__package__)
 
@@ -9,9 +11,12 @@ class Tab(Tkinter.Frame):
     """
     A base tab class - with vertical scrolling
     """
-    def __init__(self, master, name='test', basedir='.', configfile=(), *args, **kwargs):
+    #log.debug(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
+    db = DAL('sqlite://storage.db', folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
+
+    def __init__(self, root, name='test', basedir='.', configfile=(), *args, **kwargs):
         """
-        master    : root Tkinter class
+        root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab
         basedir   : Application root directory
         configfile: Tuple of (filename, subroot tag)
@@ -23,10 +28,11 @@ class Tab(Tkinter.Frame):
         - Defines class variables from application config file
         - Creates a vertical scroll bar for the application
         """
-        Tkinter.Frame.__init__(self, master, bd=2, relief="sunken", *args, **kwargs)
+        Tkinter.Frame.__init__(self, root, bd=2, relief="sunken", *args, **kwargs)
         self.name = name
-        self.root = master
+        self.root = root
         self.basedir = basedir
+        self.title = None
         log.debug("# %s Application Initiated" % self.name)
 
         # Check if a config filename as passed tuple of (filename, subroot tag)
@@ -112,40 +118,6 @@ class Tab(Tkinter.Frame):
         """ Set the scroll region on the canvas"""
         self.canvas.configure(scrollregion=self.canvas.bbox('all'))
 
-    def load(self):
-        """
-        Configure a default database connection string for all applications.
-
-        Instead of having to create the same connection for each application declare it in the Tab class and call:
-            tab.Tab.load(self)
-
-        In your application load method.
-        """
-        # load DB connection string
-        self.dbconn = "DRIVER={SQL Server};SERVER=DB;DATABASE=Default;Trusted_Connection=True"
-        self.server = 'DB'
-        log.debug('# Database: %s' % self.server)
-
-
-    def db_exec(self, query):
-        """
-        Execute a query
-        """
-        log.debug('QUERY: %s' % query)
-        with pyodbc.connect(self.dbconn) as cnxn:
-            cursor = cnxn.cursor()
-            cursor.execute(query)
-
-    def db_select(self, query):
-        """
-        Execute a select query and return results
-        """
-        result = None
-        log.debug('QUERY: %s' % query)
-        with pyodbc.connect(self.dbconn) as cnxn:
-            cursor = cnxn.cursor()
-            result = cursor.execute(query).fetchall()
-        return result
 
 
 if __name__ == '__main__':

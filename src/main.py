@@ -98,7 +98,7 @@ class Main(tab.Tab):
                 log.debug(self.root.production)
                 if app.production or bool(self.root.production):
                     # Create a frame for the app/module
-                    frame_app = app(self.root, name='%s.%s' % (folder, name), basedir=basedir, bd=2, relief="sunken")
+                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), basedir=basedir, bd=2, relief="sunken")
                     frame_app.pack(expand="true", fill="both")
 
                     log.debug("Frameapp Name: %s" % frame_app.name)
@@ -109,11 +109,11 @@ class Main(tab.Tab):
                         Call Back: switches tab to the application frame and loads the application
                         """
                         self.root.switch_tab(frame_app.name)
-                        frame_app.load()
+                        #frame_app.load()
 
 
-                    # For some reason... when using the text from class it returns a blank image that cannot be clicked.
-                    try: # if frame_app.image_path
+                    # set the Application icon image
+                    try:
                         frame_app.image = Tkinter.PhotoImage(file=frame_app.image_path)
                     except AttributeError:
                         frame_app.image = Tkinter.PhotoImage(file=os.path.join(basedir, 'images/placeholder.gif'))
@@ -133,7 +133,8 @@ class Main(tab.Tab):
                     else:
                         col_num += 1
 
-
+    def load(self):
+        pass
 
 
 if __name__ == '__main__':

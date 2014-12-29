@@ -96,6 +96,7 @@ class tKroopy(Tkinter.Tk):
             self.tabs[self.current_tab].pack_forget()
         # add the new tab to the display
         self.tabs[name].pack(expand="true", fill="both")
+        self.tabs[name].load()
         self.title("tKroopy - %s" % self.tabs[name].title)
         # set the current tab to itself
         self.current_tab = name
