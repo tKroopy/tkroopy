@@ -41,16 +41,31 @@ class Template(tab.Tab):
 
         # Displayed in the main menu
         self.title = 'Application Title'
-
+        self.models()
         # Enter any instance variables here.
 
         # Enter any tk widgets here.
+
+    @staticmethod
+    def models():
+        # Documentation on DAL
+        # http://www.web2py.com/books/default/chapter/29/06/the-database-abstraction-layer
+        pass
 
     def load(self):
         """
         Initiates the application when the button is clicked in the main menu
         """
-        tab.Tab.load(self)
+        # Remove any previous instances of application UI
+        try:
+            self.frame_main.pack_forget()
+            self.frame_main.destroy()
+        except:
+            pass
+
+        ## self.interior is the frame which sits inside the canvas to enable vertical scrolling
+        self.frame_main = Tkinter.Frame(self.interior)
+        self.frame_main.pack()
 
         # Any code here will be run when the application is started from the main menu
 
