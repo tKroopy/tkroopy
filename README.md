@@ -6,7 +6,9 @@ Free open source tkinter framework for grouping small to medium applications tog
 
 tkroopy relies on a couple of additional modules:
 
-* [pyodbc](https://code.google.com/p/pyodbc/)
+* [pyDAL](https://github.com/web2py/pydal)
+
+To compile code:
 * [setup tools](https://pypi.python.org/pypi/setuptools)
 * [py2exe](http://www.py2exe.org/) (windows)
 
