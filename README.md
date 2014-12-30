@@ -20,11 +20,17 @@ To compile code:
 
 ## Use
 
-Download or fork tkroopy to your local machine, you can then run using tKroopy.py in the root directory or using setup.bat to create an executable (this will create a new folder ../tkroopy dev
+### Running
+
+Download or fork tkroopy to your local machine, you can then run using tKroopy.py in the root directory.
 
 ### Creating New Applications
 
 Copy the /src/template.py file into the /src/Applications/ directory and build your code ontop of this module. The file name needs to be the same as the initiating class name.
+
+### Compiling
+
+If you want to share your applications internally to non-python users you can compile the code into an executable using setup.bat in the root directory. 
 
 ## Directory Structure
 
