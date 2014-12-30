@@ -1,12 +1,15 @@
 ## About
 
-tKroopy is an open source Tkinter framework for building groups of small to medium GUI applications. 
+tKroopy is an open source Tkinter framework for building groups of small to medium GUI applications.
 
 Think of it as a central location where you would store all of your applications that run tasks. Be it extracting data out of your database or a handy calculator to work out how much annual leave you'll have in say 6 months time.
 
 ## Features
 
-* DAL - web2py's powerful DAL library for desktop applications
+* Data Abstraction Layer - web2py's powerful DAL library for desktop applications
+* Table - display your data from your database with a couple of lines of code
+* Console - a thread safe Text widget
+* Productionisation - when applying patches to existing applications you can continue to develop applications without having to worry about preventing them from going into production
 
 ## Dependancies
 
