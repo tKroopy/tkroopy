@@ -16,7 +16,6 @@ tkroopy relies on a couple of additional modules:
 You will need additional libraries to connect to an existing database, see [here](http://www.web2py.com/books/default/chapter/29/06/the-database-abstraction-layer#Dependencies).
 
 To compile code:
-* [setup tools](https://pypi.python.org/pypi/setuptools) - follow install instructuions
 * [py2exe](http://www.py2exe.org/) (windows) - follow install instructions
 
 ## Use
