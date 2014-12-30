@@ -26,7 +26,7 @@ class Main(tab.Tab):
     """
     Main menu for tKroopy applications
     """
-    def __init__(self, root, name, basedir, *args, **kwargs):
+    def __init__(self, root, name, *args, **kwargs): #, basedir
         """
         root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab
@@ -37,7 +37,7 @@ class Main(tab.Tab):
 
         Applications are stored in a hierarchical structure in the Applications directory.
         """
-        tab.Tab.__init__(self, root, name, basedir, *args, **kwargs)
+        tab.Tab.__init__(self, root, name, *args, **kwargs)#, basedir
 
         # Tab controll or window control
         self.title = 'Main Menu'
@@ -98,7 +98,7 @@ class Main(tab.Tab):
                 log.debug(self.root.production)
                 if app.production or bool(self.root.production):
                     # Create a frame for the app/module
-                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), basedir=basedir, bd=2, relief="sunken")
+                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken") #, basedir=basedir
                     frame_app.pack(expand="true", fill="both")
 
                     log.debug("Frameapp Name: %s" % frame_app.name)
@@ -116,7 +116,7 @@ class Main(tab.Tab):
                     try:
                         frame_app.image = Tkinter.PhotoImage(file=frame_app.image_path)
                     except AttributeError:
-                        frame_app.image = Tkinter.PhotoImage(file=os.path.join(basedir, 'images/placeholder.gif'))
+                        frame_app.image = Tkinter.PhotoImage(file=os.path.join(self.basedir, 'images/placeholder.gif'))
                     except Exception as e:
                         log.error(e)
                     btn_app = Tkinter.Button(frame_category, text=frame_app.title, image=frame_app.image, compound="top", relief="flat", bg="white", activebackground="white", command=(lambda frame_app=frame_app: load_app(frame_app)))
@@ -139,7 +139,7 @@ class Main(tab.Tab):
 
 if __name__ == '__main__':
     root = Tkinter.Tk()
-    main = Main(root, "Main", basedir)
+    main = Main(root, "Main") #, basedir
     main.pack()
     root.mainloop()
 

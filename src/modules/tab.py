@@ -3,18 +3,19 @@ import Tkinter
 import logging
 import pyodbc
 import os
-from pydal import DAL, Field
+from contrib.pydal import DAL, Field
 
 log = logging.getLogger(__package__)
+basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..').replace('library.zip', '')
 
 class Tab(Tkinter.Frame):
     """
     A base tab class - with vertical scrolling
     """
     #log.debug(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
-    db = DAL('sqlite://storage.db', folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
+    db = DAL('sqlite://storage.db', folder=os.path.join(basedir, 'database'))
 
-    def __init__(self, root, name='test', basedir='.', configfile=(), *args, **kwargs):
+    def __init__(self, root, name='test', configfile=(), *args, **kwargs): #, basedir='.'
         """
         root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab

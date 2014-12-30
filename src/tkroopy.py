@@ -74,7 +74,7 @@ class tKroopy(Tkinter.Tk):
 
 
         # Main - Menu
-        frame_main = main.Main(self, name="Home", bg="white", basedir=self.basedir)
+        frame_main = main.Main(self, name="Home", bg="white") #, basedir=self.basedir
         frame_main.pack(expand="true", fill="both")
 
         self.add(frame_main, btn_main)
