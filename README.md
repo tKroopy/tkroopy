@@ -12,10 +12,10 @@ Think of it as a central location where you would store all of your applications
 
 tkroopy relies on a couple of additional modules:
 
-* [pyDAL](https://github.com/web2py/pydal) - comes with tkroopy in site-packages folder.
-You will need additional libraries to connect to an existing database, see [here](http://www.web2py.com/books/default/chapter/29/06/the-database-abstraction-layer#Dependencies).
+Included:
+* [pyDAL](https://github.com/web2py/pydal)
 
-To compile code:
+Download required:
 * [py2exe](http://www.py2exe.org/) (windows) - follow install instructions
 
 ## Use
@@ -30,7 +30,9 @@ Copy the /src/template.py file into the /src/Applications/ directory and build y
 
 ### Compiling
 
-If you want to share your applications internally to non-python users you can compile the code into an executable using setup.bat in the root directory. 
+If you want to share your applications internally to non-python users you can compile the code into an executable using setup.bat in the root directory (will add support for osx soon).
+
+
 
 ## Directory Structure
 
