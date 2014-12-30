@@ -9,11 +9,12 @@ import py2exe
 from glob import glob
 import sys, shutil, os, zipfile
 import datetime
+import time
 
 # Switch True/False
 # - test = True will compile the application into
 test = True
-name = 'tkroopy'
+name = 'tKroopy'
 
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 print 'Basedir: %s' % basedir
@@ -23,15 +24,17 @@ sys.path.append(r'C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\Microsoft.VC90.C
 data_files = [("Microsoft.VC90.CRT", glob(r'C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\Microsoft.VC90.CRT\*.*'))]
 
 # Include images in the build
-data_files.append(('images', glob(os.path.join(basedir, r"Source\images/*.gif"))))
-data_files.append(('scripts', glob(os.path.join(basedir, r"Source\scripts/*.py"))))
+data_files.append(('images', glob(os.path.join(basedir, r"tkroopy\images/*.gif"))))
+data_files.append(('scripts', glob(os.path.join(basedir, r"tkroopy\scripts/*.py"))))
+data_files.append(('logs', glob(os.path.join(basedir, r"tkroopy\logs/*.no"))))
+data_files.append(('database', glob(os.path.join(basedir, r"tkroopy\database/*.*"))))
 
 if test:
     # Set the destination directory
     dist_dir = os.path.join(basedir, name + ' Dev')
 
     # Copy config files with the build
-    data_files.append(('config', glob(os.path.join(basedir, r"Source\config/*.*"))))
+    data_files.append(('config', glob(os.path.join(basedir, r"tkroopy\config/*.*"))))
 else:
     # Set the destination directory
     dist_dir = os.path.join(basedir, name)
@@ -39,7 +42,7 @@ else:
     # Create zip source files and insert into the archive directory
     exclude = ['build']
     with zipfile.ZipFile(os.path.join(basedir, r'Archive\%s_%s.zip' %(name, datetime.datetime.now().strftime('%Y%m%d'))), mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
-        path = os.path.join(basedir, 'Source')
+        path = os.path.join(basedir, 'tkroopy')
         for root, dirs, files in os.walk(path):
             dirs[:] = [d for d in dirs if d not in exclude]
             for file1 in files:
@@ -52,7 +55,7 @@ setup(
         data_files=data_files,
         options = {
             'py2exe': {
-                'packages': ['src'],
+                'packages': ['src', 'contrib'],
                 'includes': 'decimal',
                 #'excludes': ['_ssl','pyreadline', 'difflib', 'doctest', 'optparse', 'pickle', 'calendar'],
                 'dll_excludes':['msvcr71.dll'],
@@ -62,3 +65,5 @@ setup(
             }
         }
 )
+
+#shutil.copytree(os.path.join(basedir, 'tkroopy/site-packages'), os.path.join(basedir, name + ' Dev/site-packages'))

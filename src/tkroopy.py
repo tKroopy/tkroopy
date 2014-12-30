@@ -21,6 +21,7 @@ import Tkinter, tkMessageBox
 import main
 
 class tKroopy(Tkinter.Tk):
+
     def __init__(self, basedir):
         Tkinter.Tk.__init__(self)
 
@@ -35,8 +36,6 @@ class tKroopy(Tkinter.Tk):
 
         config = ConfigParser.ConfigParser()
         config.read(os.path.join(basedir,'config/config.ini'))
-
-        self.basedir = basedir
 
         # Check if production environment
         self.production = config.get('Version', 'Production')
@@ -74,7 +73,7 @@ class tKroopy(Tkinter.Tk):
 
 
         # Main - Menu
-        frame_main = main.Main(self, name="Home", bg="white", basedir=self.basedir)
+        frame_main = main.Main(self, name="Home", bg="white")
         frame_main.pack(expand="true", fill="both")
 
         self.add(frame_main, btn_main)

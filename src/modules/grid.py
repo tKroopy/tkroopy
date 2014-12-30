@@ -6,7 +6,7 @@ Created on 10/05/2014
 import Tkinter
 from functools import partial
 import logging
-from pydal import DAL
+from contrib.pydal import DAL
 
 format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
 logging.basicConfig(format=format, level=logging.NOTSET)
@@ -56,7 +56,7 @@ class Grid(Tkinter.Frame):
         header_i = 0
 
         log.debug(data)
-        if str(type(data)) == '<class \'pydal.objects.Rows\'>':
+        if str(type(data)) == '<class \'contrib.pydal.objects.Rows\'>':
             for header in data.colnames:
                 header = header.split('.')[1].title()
                 Tkinter.Label(self.frame_table, text=header, bg="grey").grid(row=0, column=header_i, padx=1, pady=1, sticky='nsew')
@@ -66,7 +66,7 @@ class Grid(Tkinter.Frame):
                 Tkinter.Label(self.frame_table, text=header, bg="grey").grid(row=0, column=header_i, padx=1, pady=1, sticky='nsew')
                 header_i += 1
         else:
-            raise TypeError('Must be type [Dict()] or DAL select result')
+            raise TypeError('Must be type [Dict()] or DAL select result got %s' %(type(data)))
 
         for link in self.links:
             Tkinter.Label(self.frame_table, text=link['header'], bg="grey").grid(row=0, column=header_i, padx=1, pady=1, sticky='nsew')
@@ -80,7 +80,7 @@ class Grid(Tkinter.Frame):
 
         for row in data:
 
-            if str(type(data)) == '<class \'pydal.objects.Rows\'>':
+            if str(type(data)) == '<class \'contrib.pydal.objects.Rows\'>':
                 for col_i, col in enumerate(data.colnames):
                     row_item = Tkinter.Label(self.frame_table, text=row[col])
                     row_item.grid(row=row_i, column=col_i, padx=1, pady=1, sticky='w')
