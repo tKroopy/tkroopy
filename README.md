@@ -6,7 +6,7 @@ Think of it as a central location where you would store all of your applications
 
 ## Features
 
-* DAL
+* DAL - web2py's powerful DAL library for desktop applications
 
 ## Dependancies
 
@@ -39,11 +39,13 @@ If you want to share your applications internally to non-python users you can co
     project/
         config/       > config files
             config.ini    > general config file
+        contrib/      > third party modules
         images/       > icons etc.
         logs/         > YYYYMMDD.log files
         scripts/      > store any python code that cannot be compiled, e.g. ArcPy scripts
         src/
             applicatoins/ > place your applications in here
+                examples/   > group your applications into subfolders
             modules/      > framework modules
                 console.py    > threadsafe Text widget with vscrollbar
                 hyperlink.py  > insert hyperlink into console
