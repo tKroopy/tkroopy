@@ -4,7 +4,6 @@ import logging
 import webbrowser
 from functools import partial
 import sys, os
-from contrib.pydal import DAL, Field
 
 # set basedir for testing this application
 if '__file__' in globals():

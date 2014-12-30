@@ -4,11 +4,11 @@ import logging
 import webbrowser
 from functools import partial
 import sys, os
-from contrib.pydal import DAL, Field
+from pydal import DAL, Field
 
 # set basedir for testing this application
-#if '__file__' in globals():
-#    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
+if '__file__' in globals():
+    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
 
 try:
     # import when running tkroopy
@@ -16,7 +16,6 @@ try:
     import src.modules.grid as grid
 except:
     # import when testing this application
-    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
     sys.path.append(r'%s\src' % basedir)
     import modules.tab as tab
     import modules.grid as grid
@@ -32,9 +31,9 @@ class Movie_Db(tab.Tab):
     """
     production = False
 
-    def __init__(self, root, name, *args, **kwargs): #, basedir
+    def __init__(self, root, name, basedir, *args, **kwargs):
 
-        tab.Tab.__init__(self, root, name) # , basedir
+        tab.Tab.__init__(self, root, name, basedir)
 
         # Displayed in the main menu
         self.title = 'Movie Database'
@@ -80,7 +79,7 @@ class Movie_Db(tab.Tab):
 
         # Add record
         def add_record():
-            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record') #, self.basedir
+            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record', self.basedir)
             frame_movie.pack(expand="true", fill="both")
 
             self.root.add(frame_movie, None)
@@ -96,7 +95,7 @@ class Movie_Db(tab.Tab):
 
         def edit_record(record_id):
             log.debug(record_id)
-            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record', record_id) #, self.basedir
+            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record', self.basedir, record_id)
             frame_movie.pack(expand="true", fill="both")
 
             self.root.add(frame_movie, None)
@@ -112,9 +111,9 @@ class Add_Record(tab.Tab):
     """
     Creates a new tab to allow the use to create/edit the movie record
     """
-    def __init__(self, root, name, record_id=None, *args, **kwargs): #, basedir
+    def __init__(self, root, name, basedir, record_id=None, *args, **kwargs):
 
-        tab.Tab.__init__(self, root, name) #, basedir
+        tab.Tab.__init__(self, root, name, basedir)
 
         self.record_id = record_id
 

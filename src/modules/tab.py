@@ -2,9 +2,8 @@
 import Tkinter
 import logging
 import pyodbc
-import os, sys
-
-from contrib.pydal import DAL, Field
+import os
+from pydal import DAL, Field
 
 log = logging.getLogger(__package__)
 
@@ -12,10 +11,10 @@ class Tab(Tkinter.Frame):
     """
     A base tab class - with vertical scrolling
     """
-    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..').replace('library.zip\\', '')
-    db = DAL('sqlite://storage.db', folder=os.path.join(basedir, 'database'))
+    #log.debug(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
+    db = DAL('sqlite://storage.db', folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
 
-    def __init__(self, root, name='test', configfile=(), *args, **kwargs):
+    def __init__(self, root, name='test', basedir='.', configfile=(), *args, **kwargs):
         """
         root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab
@@ -29,11 +28,10 @@ class Tab(Tkinter.Frame):
         - Defines class variables from application config file
         - Creates a vertical scroll bar for the application
         """
-
         Tkinter.Frame.__init__(self, root, bd=2, relief="sunken", *args, **kwargs)
         self.name = name
         self.root = root
-        self.basedir = Tab.basedir
+        self.basedir = basedir
         self.title = None
         log.debug("# %s Application Initiated" % self.name)
 
