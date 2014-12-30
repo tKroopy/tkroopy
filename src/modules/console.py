@@ -47,3 +47,23 @@ class Console(Frame):
         except Queue.Empty:
             pass
         self.after(100, self.update_me)
+
+if __name__ == '__main__':
+    # testing application
+    import time
+    root = Tk()
+    console = Console(root)
+    console.pack()
+
+    def count():
+        for i in range(0, 100):
+            console.write('%s\n' % i)
+            time.sleep(0.1)
+
+    import threading
+    t = threading.Thread(target=count)
+    t.daemon = True
+    t.start()
+
+    root.mainloop()
+    exit()

@@ -2,11 +2,12 @@
 import Tkinter
 import logging
 import pyodbc
-import os
-from contrib.pydal import DAL, Field
+import os, sys
 
 log = logging.getLogger(__package__)
 basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..').replace('library.zip', '')
+
+from contrib.pydal import DAL, Field
 
 class Tab(Tkinter.Frame):
     """
@@ -15,7 +16,7 @@ class Tab(Tkinter.Frame):
     #log.debug(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../database'))
     db = DAL('sqlite://storage.db', folder=os.path.join(basedir, 'database'))
 
-    def __init__(self, root, name='test', configfile=(), *args, **kwargs): #, basedir='.'
+    def __init__(self, root, name='test', configfile=(), *args, **kwargs):
         """
         root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab

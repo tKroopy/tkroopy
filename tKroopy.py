@@ -18,7 +18,7 @@ else:  # should never happen
 os.chdir(basedir)
 
 sys.path = [basedir] + [p for p in sys.path if not p == basedir]
-#sys.path.append(os.path.join(basedir, 'site-package'))
+sys.path.append(os.path.join(basedir, 'contrib'))
 
 log = logging.getLogger(__package__)
 

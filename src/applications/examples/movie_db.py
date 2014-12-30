@@ -4,7 +4,6 @@ import logging
 import webbrowser
 from functools import partial
 import sys, os
-from contrib.pydal import DAL, Field
 
 # set basedir for testing this application
 if '__file__' in globals():
@@ -14,11 +13,13 @@ try:
     # import when running tkroopy
     import src.modules.tab as tab
     import src.modules.grid as grid
+    from contrib.pydal import DAL, Field
 except:
     # import when testing this application
-    sys.path.append(r'%s\src' % basedir)
     import modules.tab as tab
     import modules.grid as grid
+    from contrib.pydal import DAL, Field
+
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
     logging.basicConfig(format=format, level=logging.NOTSET)
 
