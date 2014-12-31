@@ -66,6 +66,10 @@ class Fibonacci_Numbers(page.Page):
         # Any code here will be run when the application is started from the main menu
         self.console_fib = console.Console(self.frame_main, width=50, height=20)
         self.console_fib.pack()
+        self.console_fib.write("This example uses fibonacci numbers to explain how the console widget is threadsafe and will not lock your application while outputting to it.\n\n")
+        self.console_fib.write("For more information about Fibonacci Numbers visit this ")
+        self.console_fib.write('link\n\n', self.console_fib.link.add(lambda : webbrowser.open_new('http://en.wikipedia.org/wiki/Fibonacci_number')))
+
 
         def start():
             import threading
@@ -78,6 +82,8 @@ class Fibonacci_Numbers(page.Page):
 
     def fibonacci_numbers(self):
         import time
+        import webbrowser
+
         def F():
             a,b = 0,1
             yield a
@@ -92,8 +98,15 @@ class Fibonacci_Numbers(page.Page):
                 if cur >= startNumber:
                     yield cur
 
+        # clear text from console
         self.console_fib.clear()
-        for i in SubFib(0, 200):
+
+        self.console_fib.write("This example uses fibonacci numbers to explain how the console widget is threadsafe and will not lock your application while outputting to it.\n\n")
+        self.console_fib.write("For more information about Fibonacci Numbers visit this ")
+        self.console_fib.write('link\n\n', self.console_fib.link.add(lambda : webbrowser.open_new('http://en.wikipedia.org/wiki/Fibonacci_number')))
+
+        # output fibonnaci numbers to console
+        for i in SubFib(0, 100):
             time.sleep(0.5)
             self.console_fib.write('%s\n' % i)
         self.console_fib.write('Done!')
