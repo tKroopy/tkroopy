@@ -9,11 +9,11 @@ if '__file__' in globals():
     basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
 try:
-    import src.modules.tab as tab
+    import src.modules.page as page
 except:
     import sys
     sys.path.append(r'%s\src' % basedir)
-    import modules.tab as tab
+    import modules.page as page
     import modules.table as table
 
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
@@ -22,14 +22,14 @@ except:
 log = logging.getLogger(__package__)
 log.debug(basedir)
 
-class Main(tab.Tab):
+class Main(page.Page):
     """
     Main menu for tKroopy applications
     """
     def __init__(self, root, name, *args, **kwargs): #, basedir
         """
         root    : root Tkinter class
-        name      : Name of the tab, must be unique as it's used to switch to the tab
+        name      : Name of the page, must be unique as it's used to switch to the page
         basedir   : Application root directory
         -----------------------------------------------------------------------
         Initiates all of the applications and provides buttons/icons for each of
@@ -37,9 +37,9 @@ class Main(tab.Tab):
 
         Applications are stored in a hierarchical structure in the Applications directory.
         """
-        tab.Tab.__init__(self, root, name, *args, **kwargs)#, basedir
+        page.Page.__init__(self, root, name, *args, **kwargs)
 
-        # Tab controll or window control
+        # Page controll or window control
         self.title = 'Main Menu'
 
         myzip = r'library.zip'
@@ -106,9 +106,9 @@ class Main(tab.Tab):
                     # Create a button for the app/module
                     def load_app(frame_app):
                         """
-                        Call Back: switches tab to the application frame and loads the application
+                        Call Back: switches page to the application frame and loads the application
                         """
-                        self.root.switch_tab(frame_app.name)
+                        self.root.change_page(frame_app.name)
                         #frame_app.load()
 
 
@@ -122,8 +122,8 @@ class Main(tab.Tab):
                     btn_app = Tkinter.Button(frame_category, text=frame_app.title, image=frame_app.image, compound="top", relief="flat", bg="white", activebackground="white", command=(lambda frame_app=frame_app: load_app(frame_app)))
                     btn_app.grid(row=row_num, column=col_num, padx=10, pady=10)
 
-                    # Add the button to the tab bar (home screen icons)
-                    self.root.add(frame_app, btn_app)
+                    # Create a new page
+                    self.root.add_page(frame_app, btn_app)
 
                     # Positioning of buttons
                     # 8 per row
@@ -139,7 +139,7 @@ class Main(tab.Tab):
 
 if __name__ == '__main__':
     root = Tkinter.Tk()
-    main = Main(root, "Main") #, basedir
+    main = Main(root, "Main")
     main.pack()
     root.mainloop()
 

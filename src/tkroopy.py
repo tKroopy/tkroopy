@@ -4,7 +4,7 @@
 # -----------------------------
 # - Tkinter class :: http://sebsauvage.net/python/gui/
 # - MVC Influence :: https://bitbucket.org/driscollis/medialocker
-# - Tabs :: http://code.activestate.com/recipes/577261-python-tkinter-tabs/
+# - Pages :: http://code.activestate.com/recipes/577261-python-tkinter-tabs/
 # - Hyperlink :: http://effbot.org/zone/tkinter-text-hyperlink.htm
 # - scrollbars :: http://stackoverflow.com/questions/9561030/vertical-and-horizontal-scrollbars-on-tkinter-widget
 # - tkFileDialog :: http://tkinter.unpythonic.net/wiki/tkFileDialog
@@ -28,7 +28,7 @@ class tKroopy(Tkinter.Tk):
         self.name = "Home"
         self.minsize(700, 400)
         self.geometry("700x550")
-        #self.iconbitmap(r'%s\tkRoopy.ico' % basedir)
+        #self.iconbitmap(r'%s\tKroopy.ico' % basedir)
 
         # Config
         import ConfigParser, os
@@ -41,13 +41,13 @@ class tKroopy(Tkinter.Tk):
         # Check if production environment
         self.production = config.get('Version', 'Production')
 
-        # Create the class variables for the tabs
-        self.tabs = {}
+        # Create the class variables for the pages
+        self.pages = {}
         self.buttons = {}
-        self.current_tab = None
+        self.current_page = None
 
-        self.tab_order = ['Home']
-        self.tab_order_index = 0
+        self.page_order = ['Home']
+        self.page_order_index = 0
 
         # Header
         self.frame_header = Tkinter.Frame(self)
@@ -65,7 +65,7 @@ class tKroopy(Tkinter.Tk):
         self.btn_forward.grid(row=0, column=1, padx=(0,5), pady=5)
         self.btn_forward.config(state="disabled")
 
-        btn_main = Tkinter.Button(frame_header_buttons, text="Home", command=(lambda name=self.name: self.switch_tab(name)))
+        btn_main = Tkinter.Button(frame_header_buttons, text="Home", command=(lambda name=self.name: self.change_page(name)))
         btn_main.grid(row=0, column=3, padx=5, pady=5)
 
         # Header - Status (Stage/Production)
@@ -74,64 +74,64 @@ class tKroopy(Tkinter.Tk):
 
 
         # Main - Menu
-        frame_main = main.Main(self, name="Home", bg="white") #, basedir=self.basedir
+        frame_main = main.Main(self, name="Home", bg="white")
         frame_main.pack(expand="true", fill="both")
 
-        self.add(frame_main, btn_main)
-        self.switch_tab("Home")
+        self.add_page(frame_main, btn_main)
+        self.change_page("Home")
 
-    def add(self, tab, button):
-        # hide the tab on init
-        tab.pack_forget()
+    def add_page(self, page, button):
+        # hide the page on init
+        page.pack_forget()
 
-        # add it to the list of tabs
+        # add it to the list of pages
         # pack the button to the left most of self
-        self.tabs[tab.name] = tab
+        self.pages[page.name] = page
         # add it to the list of buttons
-        self.buttons[tab.name] = button
+        self.buttons[page.name] = button
 
-    def switch_tab(self, name):
-        if self.current_tab:
-            # hide the current tab
-            self.tabs[self.current_tab].pack_forget()
-        # add the new tab to the display
-        self.tabs[name].pack(expand="true", fill="both")
-        self.tabs[name].load()
-        self.title("tKroopy - %s" % self.tabs[name].title)
-        # set the current tab to itself
-        self.current_tab = name
+    def change_page(self, name):
+        if self.current_page:
+            # hide the current page
+            self.pages[self.current_page].pack_forget()
+        # add the new page to the display
+        self.pages[name].pack(expand="true", fill="both")
+        self.pages[name].load()
+        self.title("tKroopy - %s" % self.pages[name].title)
+        # set the current page to itself
+        self.current_page = name
 
         # Maintains the back/forward order
-        #log.debug('switch to: %s - %s' % (self.tab_order, self.tab_order_index))
-        if self.current_tab == 'Home':
-            self.tab_order = ['Home']
-            self.tab_order_index = 0
+        #log.debug('switch to: %s - %s' % (self.page_order, self.page_order_index))
+        if self.current_page == 'Home':
+            self.page_order = ['Home']
+            self.page_order_index = 0
             self.btn_back.config(state="disabled")
-        elif name in self.tab_order:
-            self.tab_order_index = self.tab_order.index(name)
+        elif name in self.page_order:
+            self.page_order_index = self.page_order.index(name)
         else:
-            self.tab_order.append(self.current_tab)
-            self.tab_order_index = self.tab_order.index(self.current_tab)
+            self.page_order.append(self.current_page)
+            self.page_order_index = self.page_order.index(self.current_page)
             self.btn_back.config(state="normal")
 
-        if self.tab_order.index(self.current_tab) == len(self.tab_order):
+        if self.page_order.index(self.current_page) == len(self.page_order):
             self.btn_forward.config(state="disabled")
 
     def back(self):
-        #log.debug('before: %s - %s' % (self.tab_order, self.tab_order_index))
-        self.tab_order_index = self.tab_order.index(self.current_tab)-1
-        #log.debug('switch to: %s' % self.tab_order[self.tab_order_index])
-        self.switch_tab(self.tab_order[self.tab_order_index])
+        #log.debug('before: %s - %s' % (self.page_order, self.page_order_index))
+        self.page_order_index = self.page_order.index(self.current_page)-1
+        #log.debug('switch to: %s' % self.page_order[self.page_order_index])
+        self.change_page(self.page_order[self.page_order_index])
         #self.btn_forward.config(state="normal")
-        #log.debug('after: %s - %s' % (self.tab_order, self.tab_order_index))
+        #log.debug('after: %s - %s' % (self.page_order, self.page_order_index))
 
 
     def forward(self):
-        #log.debug('before: %s - %s' % (self.tab_order, self.tab_order_index))
-        self.tab_order_index = self.tab_order.index(self.current_tab)+1
-        #log.debug('switch to: %s' % self.tab_order[self.tab_order_index])
-        self.switch_tab(self.tab_order[self.tab_order_index])
-        #log.debug('after: %s - %s' % (self.tab_order, self.tab_order_index))
+        #log.debug('before: %s - %s' % (self.page_order, self.page_order_index))
+        self.page_order_index = self.page_order.index(self.current_page)+1
+        #log.debug('switch to: %s' % self.page_order[self.page_order_index])
+        self.change_page(self.page_order[self.page_order_index])
+        #log.debug('after: %s - %s' % (self.page_order, self.page_order_index))
 
 
 # ------ END OF FILE ----

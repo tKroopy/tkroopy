@@ -2,7 +2,7 @@
 
 import src.tkroopy as tkroopy
 import os, sys, datetime
-import logging #, logging.config
+import logging
 
 format = '%(asctime)s::%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
 datefmt = '%Y%m%d %H:%M:%S'
@@ -18,7 +18,6 @@ else:  # should never happen
 os.chdir(basedir)
 
 sys.path = [basedir] + [p for p in sys.path if not p == basedir]
-sys.path.append(os.path.join(basedir, 'contrib'))
 
 log = logging.getLogger(__package__)
 

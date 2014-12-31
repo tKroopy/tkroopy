@@ -1,43 +1,36 @@
 # -*- coding: utf-8 -*-#
 import Tkinter
 import logging
-import webbrowser
-from functools import partial
 import sys, os
 
 # set basedir for testing this application
 if '__file__' in globals():
     basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
-
-try:
-    # import when running tkroopy
-    import src.modules.tab as tab
-    import src.modules.grid as grid
-    from contrib.pydal import DAL, Field
-except:
-    # import when testing this application
-    import modules.tab as tab
-    import modules.grid as grid
-    from contrib.pydal import DAL, Field
+    sys.path.append(basedir)
 
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
     logging.basicConfig(format=format, level=logging.NOTSET)
 
-db = tab.Tab.db
+import src.modules.page as page
+import src.modules.table as table
+from contrib.pydal import DAL, Field
+
+db = page.Page.db
 log = logging.getLogger(__package__)
 
-class Movie_Db(tab.Tab):
+class Movie_Db(page.Page):
     """
-    Movie Db - An example of how a grid works
+    Movie Db - An example of how a table works
     """
     production = False
 
     def __init__(self, root, name, *args, **kwargs): #, basedir
 
-        tab.Tab.__init__(self, root, name) #, basedir
+        page.Page.__init__(self, root, name) #, basedir
 
         # Displayed in the main menu
         self.title = 'Movie Database'
+        self.image = 'movie_db.gif'
         # Define database tables.
         self.models()
 
@@ -83,8 +76,8 @@ class Movie_Db(tab.Tab):
             frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record') #, self.basedir
             frame_movie.pack(expand="true", fill="both")
 
-            self.root.add(frame_movie, None)
-            self.root.switch_tab('examples.movie_db.Add_Record')
+            self.root.add_page(frame_movie, None)
+            self.root.change_page('examples.movie_db.Add_Record')
 
         btn_add = Tkinter.Button(self.frame_main, text='Add Record', command=add_record)
         btn_add.pack(anchor='w')
@@ -99,28 +92,28 @@ class Movie_Db(tab.Tab):
             frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record', record_id) #, self.basedir
             frame_movie.pack(expand="true", fill="both")
 
-            self.root.add(frame_movie, None)
-            self.root.switch_tab('examples.movie_db.Add_Record')
+            self.root.add_page(frame_movie, None)
+            self.root.change_page('examples.movie_db.Add_Record')
 
         # display the data in a table/grid view
         buttons = [dict(text='Edit', function=lambda row: edit_record(row['id'])), dict(text='Delete', function=lambda row: remove_record(row['id']))]
-        grid_top_ten = grid.Grid(self.frame_main, data=data, buttons=buttons)
+        grid_top_ten = table.Table(self.frame_main, data=data, buttons=buttons)
         grid_top_ten.pack()
 
 
-class Add_Record(tab.Tab):
+class Add_Record(page.Page):
     """
     Creates a new tab to allow the use to create/edit the movie record
     """
     def __init__(self, root, name, record_id=None, *args, **kwargs): #, basedir
 
-        tab.Tab.__init__(self, root, name) #, basedir
+        page.Page.__init__(self, root, name) #, basedir
 
         self.record_id = record_id
 
     def load(self):
         """
-        When the Add Record or Edit button is clicked in Movie_Db this tab will be loaded
+        When the Add Record or Edit button is clicked in Movie_Db this page will be loaded
         """
         # Remove any previous instances of application UI
         try:
@@ -161,8 +154,8 @@ class Add_Record(tab.Tab):
             log.debug(record)
             db.movie.update_or_insert(db.movie.id==self.record_id, **record)
             db.commit()
-            # change back to the Movie_Db tab
-            self.root.switch_tab('examples.Movie_Db')
+            # change back to the Movie_Db page
+            self.root.change_page('examples.Movie_Db')
 
         Tkinter.Button(self.frame_main, text='Save', command=save_record).grid(column=0, row=i+1)
 

@@ -13,7 +13,7 @@ logging.basicConfig(format=format, level=logging.NOTSET)
 
 log = logging.getLogger(__package__)
 
-class Grid(Tkinter.Frame):
+class Table(Tkinter.Frame):
 
     def __init__(self, parent, data, header=True, links=[], buttons=[], pagination=0, *args, **kwargs):
         """
@@ -179,6 +179,6 @@ if __name__ == '__main__':
     buttons = [dict(text='test1', function=lambda row: btn_click(row[0])),
                dict(text='test2', function=btn_click, parameters=dict(hello='world'))]
 
-    table = Grid(root, header=True, data=data, links=links, buttons=buttons)
+    table = Table(root, header=True, data=data, links=links, buttons=buttons)
     table.pack()
     root.mainloop()

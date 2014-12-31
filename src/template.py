@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-#
 import Tkinter
 import logging
-import webbrowser
-from functools import partial
 import sys, os
 
 # set basedir for testing this application
 if '__file__' in globals():
     basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
-
-try:
-    # import when running tkroopy
-    import src.modules.tab as tab
-    import src.modules.table as table
-except:
-    # import when testing this application
-    sys.path.append(r'%s\src' % basedir)
-    import modules.tab as tab
-    import modules.table as table
+    sys.path.append(basedir)
 
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
     logging.basicConfig(format=format, level=logging.NOTSET)
+
+# import when running tkroopy
+import src.modules.tab as tab
+from contrib.pydal import DAL, Field
 
 db = tab.Tab.db
 log = logging.getLogger(__package__)

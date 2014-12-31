@@ -1,35 +1,26 @@
 # -*- coding: utf-8 -*-#
 import Tkinter
 import logging
-import webbrowser
-from functools import partial
 import sys, os
 
 # set basedir for testing this application
 if '__file__' in globals():
     basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
-
-try:
-    # import when running tkroopy
-    import src.modules.tab as tab
-    import src.modules.table as table
-    import src.modules.console as console
-    from contrib.pydal import DAL, Field
-except:
-    # import when testing this application
-    sys.path.append(r'%s' % basedir)
-    import src.modules.tab as tab
-    import src.modules.table as table
-    import src.modules.console as console
-    from contrib.pydal import DAL, Field
+    sys.path.append(basedir)
 
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
     logging.basicConfig(format=format, level=logging.NOTSET)
 
-db = tab.Tab.db
+# import when running tkroopy
+import src.modules.page as page
+import src.modules.table as table
+import src.modules.console as console
+from contrib.pydal import DAL, Field
+
+db = page.Page.db
 log = logging.getLogger(__package__)
 
-class Fibonacci_Numbers(tab.Tab):
+class Fibonacci_Numbers(page.Page):
     """
     App Template - Enter a description of the Application here
     """
@@ -41,10 +32,11 @@ class Fibonacci_Numbers(tab.Tab):
         You can code widgets here but to not initialise any data. Loading data
         should be done in the load method.
         """
-        tab.Tab.__init__(self, root, name)
+        page.Page.__init__(self, root, name)
 
         # Displayed in the main menu
         self.title = 'Fibonacci Numbers'
+        self.image = 'fibonacci_numbers.gif'
         self.models()
         # Enter any instance variables here.
 
