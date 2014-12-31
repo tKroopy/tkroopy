@@ -2,6 +2,7 @@
 import Tkinter
 import logging
 import sys, os
+import webbrowser
 
 # set basedir for testing this application
 if '__file__' in globals():
@@ -82,7 +83,6 @@ class Fibonacci_Numbers(page.Page):
 
     def fibonacci_numbers(self):
         import time
-        import webbrowser
 
         def F():
             a,b = 0,1
