@@ -30,7 +30,7 @@ class Movie_Db(page.Page):
 
         # Displayed in the main menu
         self.title = 'Movie Database'
-        self.image = 'movie_db.gif'
+        self.image_path = 'movie_db.gif'
         # Define database tables.
         self.models()
 

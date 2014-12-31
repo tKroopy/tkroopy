@@ -114,7 +114,7 @@ class Main(page.Page):
 
                     # set the Application icon image
                     try:
-                        frame_app.image = Tkinter.PhotoImage(file=frame_app.image_path)
+                        frame_app.image = Tkinter.PhotoImage(file=os.path.join(self.basedir, 'images/%s' %frame_app.image_path))
                     except AttributeError:
                         frame_app.image = Tkinter.PhotoImage(file=os.path.join(self.basedir, 'images/placeholder.gif'))
                     except Exception as e:

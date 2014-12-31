@@ -14,6 +14,7 @@ import datetime
 # - test = True will compile the application into
 test = True
 name = 'tkroopy'
+source = 'source'
 
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 print 'Basedir: %s' % basedir
@@ -23,17 +24,17 @@ sys.path.append(r'C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\Microsoft.VC90.C
 data_files = [("Microsoft.VC90.CRT", glob(r'C:\Program Files (x86)\ArcGIS\Desktop10.2\bin\Microsoft.VC90.CRT\*.*'))]
 
 # Include images in the build
-data_files.append(('images', glob(os.path.join(basedir, r"%s\images/*.gif" % name))))
-data_files.append(('scripts', glob(os.path.join(basedir, r"%s\scripts/*.py" % name))))
-data_files.append(('logs', glob(os.path.join(basedir, r"%s\logs/*.py" % name))))
-data_files.append(('database', glob(os.path.join(basedir, r"%s\database/*.*" % name))))
+data_files.append(('images', glob(os.path.join(basedir, r"%s\images/*.*" % source))))
+data_files.append(('scripts', glob(os.path.join(basedir, r"%s\scripts/*.py" % source))))
+data_files.append(('logs', glob(os.path.join(basedir, r"%s\logs/*.py" % source))))
+data_files.append(('database', glob(os.path.join(basedir, r"%s\database/*.*" % source))))
 
 if test:
     # Set the destination directory
     dist_dir = os.path.join(basedir, name + ' Dev')
 
     # Copy config files with the build
-    data_files.append(('config', glob(os.path.join(basedir, r"%s\config/*.*" % name))))
+    data_files.append(('config', glob(os.path.join(basedir, r"%s\config/*.*" % source))))
 else:
     # Set the destination directory
     dist_dir = os.path.join(basedir, name)
@@ -50,13 +51,13 @@ else:
 
 # This setup is suitable for "python setup.py develop".
 setup(
-        windows=[name + '.py'],
+        windows=[{'script':'tkroopy.py',
+                    'icon_resources': [(0, 'images/tKroopy.ico')]}],
         data_files=data_files,
         options = {
             'py2exe': {
                 'packages': ['src', 'contrib'],
                 'includes': 'decimal',
-                #'excludes': ['_ssl','pyreadline', 'difflib', 'doctest', 'optparse', 'pickle', 'calendar'],
                 'dll_excludes':['msvcr71.dll'],
                 'optimize': 0,
                 'compressed': True,

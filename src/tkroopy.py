@@ -28,7 +28,7 @@ class tKroopy(Tkinter.Tk):
         self.name = "Home"
         self.minsize(700, 400)
         self.geometry("700x550")
-        #self.iconbitmap(r'%s\tKroopy.ico' % basedir)
+        self.iconbitmap(r'%s\images\tKroopy.ico' % basedir)
 
         # Config
         import ConfigParser, os

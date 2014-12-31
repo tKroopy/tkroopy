@@ -36,7 +36,7 @@ class Fibonacci_Numbers(page.Page):
 
         # Displayed in the main menu
         self.title = 'Fibonacci Numbers'
-        self.image = 'fibonacci_numbers.gif'
+        self.image_path = 'fibonacci_numbers.gif'
         self.models()
         # Enter any instance variables here.
 
