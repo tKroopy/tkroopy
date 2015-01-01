@@ -154,6 +154,7 @@ class Add_Record(page.Page):
             log.debug(record)
             db.movie.update_or_insert(db.movie.id==self.record_id, **record)
             db.commit()
+            
             # change back to the Movie_Db page
             self.root.change_page('examples.Movie_Db')
 

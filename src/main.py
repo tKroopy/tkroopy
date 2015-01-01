@@ -46,11 +46,12 @@ class Main(page.Page):
 
         try:
             # Folder location
-            application_folder = os.path.join(self.basedir, r'src\applications')
+            application_folder = os.path.join(self.basedir, 'src/applications')
             application_subfolders = [d for d in os.listdir(application_folder) if os.path.isdir(os.path.join(application_folder, d))]
             application_subfolders.append('')
             log.debug("Categories: %s" % application_subfolders)
-        except WindowsError as e:
+        
+        except OSError as e:
             log.debug(e)
             with zipfile.ZipFile(myzip) as zipper:
                 application_subfolders = [x for x in zipper.namelist() if r'src/applications' in x]
@@ -60,7 +61,7 @@ class Main(page.Page):
                 application_subfolders = set(application_subfolders)
                 application_subfolders = list(application_subfolders)
                 log.debug("Modules: %s" % application_subfolders)
-
+        
         for folder in application_subfolders:
             # Create category frame
             frame_category = Tkinter.LabelFrame(self.interior, text=folder.title(), border="0", bg="white")
