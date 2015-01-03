@@ -154,7 +154,7 @@ class Add_Record(page.Page):
             log.debug(record)
             db.movie.update_or_insert(db.movie.id==self.record_id, **record)
             db.commit()
-            
+
             # change back to the Movie_Db page
             self.root.change_page('examples.Movie_Db')
 
@@ -162,9 +162,10 @@ class Add_Record(page.Page):
 
 
 if __name__ == '__main__':
-    # testing application
+    import importlib
+
     root = Tkinter.Tk()
-    main = Movie_Db(root, "examples.Movie_Db") #, basedir
+    main = Movie_Db(root, "examples.Movie_Db")
     main.load()
     main.pack(expand="true", fill="both")
     root.mainloop()

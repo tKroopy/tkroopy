@@ -115,7 +115,7 @@ class Fibonacci_Numbers(page.Page):
 
 if __name__ == '__main__':
     root = Tkinter.Tk()
-    main = Fibonacci_Numbers(root, "Run Task")
+    main = Fibonacci_Numbers(root, "Fibonacci Numbers")
     main.load()
     main.pack(expand="true", fill="both")
     root.mainloop()

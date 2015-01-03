@@ -5,32 +5,32 @@ import sys, os
 
 # set basedir for testing this application
 if '__file__' in globals():
-    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..')
+    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
     sys.path.append(basedir)
 
     format = '%(name)s - %(levelname)s - %(filename)s - %(lineno)d - %(message)s'
     logging.basicConfig(format=format, level=logging.NOTSET)
 
 # import when running tkroopy
-import src.modules.tab as tab
+import src.modules.page as page
 from contrib.pydal import DAL, Field
 
-db = tab.Tab.db
+db = page.Page.db
 log = logging.getLogger(__package__)
 
-class Template(tab.Tab):
+class template(page.Page):
     """
     App Template - Enter a description of the Application here
     """
     production = False
 
-    def __init__(self, root, name, basedir, *args, **kwargs):
+    def __init__(self, root, name, *args, **kwargs):
         """
         Initiate the Application
         You can code widgets here but to not initialise any data. Loading data
         should be done in the load method.
         """
-        tab.Tab.__init__(self, root, name, basedir)
+        page.Page.__init__(self, root, name)
 
         # Displayed in the main menu
         self.title = 'Application Title'
@@ -66,7 +66,7 @@ class Template(tab.Tab):
 
 if __name__ == '__main__':
     root = Tkinter.Tk()
-    main = Template(root, "App Template", basedir)
+    main = Template(root, "App Template")
     main.load()
     main.pack(expand="true", fill="both")
     root.mainloop()

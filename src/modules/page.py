@@ -19,7 +19,6 @@ class Page(Tkinter.Frame):
         """
         root    : root Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab
-        basedir   : Application root directory
         configfile: Tuple of (filename, subroot tag)
         -----------------------------------------------------------------------------
         Tab is the base class for any Application, tab management code is located in
@@ -50,9 +49,9 @@ class Page(Tkinter.Frame):
             import xml.etree.ElementTree as ET
             #import inspect
             log.debug('------------------------------------------------')
-            log.debug(r'%s\config\%s.xml - %s' % (self.basedir, configfile, xml_name))
+            log.debug(r'%s\config\%s.xml - %s' % (basedir, configfile, xml_name))
 
-            with open(r'%s\config\%s.xml' % (self.basedir, configfile), 'rt') as f:
+            with open(r'%s\config\%s.xml' % (basedir, configfile), 'rt') as f:
                 tree = ET.parse(f)
                 root = tree.getroot()
                 # Create class variables from the config xml file

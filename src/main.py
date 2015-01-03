@@ -26,7 +26,7 @@ class Main(page.Page):
     """
     Main menu for tKroopy applications
     """
-    def __init__(self, root, name, *args, **kwargs): #, basedir
+    def __init__(self, root, name, *args, **kwargs):
         """
         root    : root Tkinter class
         name      : Name of the page, must be unique as it's used to switch to the page
@@ -50,7 +50,7 @@ class Main(page.Page):
             application_subfolders = [d for d in os.listdir(application_folder) if os.path.isdir(os.path.join(application_folder, d))]
             application_subfolders.append('')
             log.debug("Categories: %s" % application_subfolders)
-        
+
         except OSError as e:
             log.debug(e)
             with zipfile.ZipFile(myzip) as zipper:
@@ -61,7 +61,7 @@ class Main(page.Page):
                 application_subfolders = set(application_subfolders)
                 application_subfolders = list(application_subfolders)
                 log.debug("Modules: %s" % application_subfolders)
-        
+
         for folder in application_subfolders:
             # Create category frame
             frame_category = Tkinter.LabelFrame(self.interior, text=folder.title(), border="0", bg="white")
@@ -93,13 +93,14 @@ class Main(page.Page):
                     module = importlib.import_module('src.applications.%s.%s' % (folder, module_name))
                 except ValueError:
                     module = importlib.import_module('src.applications.%s' % (module_name))
+
                 app = getattr(module, class_name)
 
                 # Check if the App has been productionised or running development version
                 log.debug(self.root.production)
                 if app.production or bool(self.root.production):
                     # Create a frame for the app/module
-                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken") #, basedir=basedir
+                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken")
                     frame_app.pack(expand="true", fill="both")
 
                     log.debug("Frameapp Name: %s" % frame_app.name)
