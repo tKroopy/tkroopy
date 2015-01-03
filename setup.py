@@ -52,7 +52,7 @@ else:
 # This setup is suitable for "python setup.py develop".
 setup(
         windows=[{'script':'tkroopy.py',
-                    'icon_resources': [(0, 'images/tKroopy.ico')]}],
+                    'icon_resources': [(1, 'images/tKroopy.ico')]}],
         data_files=data_files,
         options = {
             'py2exe': {
@@ -65,3 +65,5 @@ setup(
             }
         }
 )
+
+shutil.rmtree(r'%s/build' % source)
