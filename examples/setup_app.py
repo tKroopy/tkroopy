@@ -55,23 +55,17 @@ class reglob:
                         and fnmatch.fnmatch(file, self.pattern):
                     return fullname
 
-setup(app=['web2py.py'],
+setup(app=['tKroopy.py'],
       version=web2py_version,
-      description="web2py web framework",
-      author="Massimo DiPierro",
-      license="LGPL v3",
+      description="tkroopy tkinter framework",
+      author="James P Burke",
+      license="GPL v3",
       data_files=[
-      'NEWINSTALL',
-      'ABOUT',
-      'LICENSE',
-      'VERSION',
-      'splashlogo.gif',
-      'logging.example.conf',
-      'options_std.py',
+      'LICENSE'
       ],
       options={'py2app': {
                'argv_emulation': True,
-               'includes': base_modules,
+               'includes': 'decimal',
                }},
       setup_requires=['py2app'])
 

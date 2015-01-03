@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-#
-# Copyright:   see copyright in the doc folder
-# License:     see license in the doc folder
-#-----------------------------------------------------------------------------
-#!/usr/bin/env python
 
 from setuptools import setup
 import py2exe
@@ -53,6 +49,9 @@ else:
 setup(
         windows=[{'script':'tkroopy.py',
                     'icon_resources': [(1, 'images/tKroopy.ico')]}],
+        description="tkroopy tkinter framework",
+        author="James P Burke",
+        license="GPL v3",
         data_files=data_files,
         options = {
             'py2exe': {
