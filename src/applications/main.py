@@ -6,7 +6,7 @@ import importlib
 import zipfile
 
 if '__file__' in globals():
-    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+    basedir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 
 try:
     import src.modules.page as page
@@ -47,17 +47,17 @@ class Main(page.Page):
         try:
             # Folder location
             application_folder = os.path.join(self.basedir, 'src/applications')
-            application_subfolders = [d for d in os.listdir(application_folder) if os.path.isdir(os.path.join(application_folder, d))]
+            application_subfolders = [d for d in os.listdir(application_folder) if os.path.isdir(os.path.join(application_folder, d)) ]
             application_subfolders.append('')
             log.debug("Categories: %s" % application_subfolders)
 
         except OSError as e:
             log.debug(e)
-            with zipfile.ZipFile(myzip) as zipper:
-                application_subfolders = [x for x in zipper.namelist() if r'src/applications' in x]
+            with zipfile.ZipFile(myzip) as z:
+                application_subfolders = [x for x in z.namelist() if r'src/applications' in x]
 
                 log.debug("Modules: %s" % application_subfolders)
-                application_subfolders = [ os.path.dirname(f).split('/')[-1] for f in application_subfolders if os.path.basename(f) not in ['main.pyc', '__init__.pyc','main.py', '__init__.py']]
+                application_subfolders = [ os.path.dirname(f).split('/')[-1] for f in application_subfolders]# if os.path.basename(f) not in ['main.pyc', '__init__.pyc','main.py', '__init__.py', 'template.py', 'template.pyc']]
                 application_subfolders = set(application_subfolders)
                 application_subfolders = list(application_subfolders)
                 log.debug("Modules: %s" % application_subfolders)
@@ -70,18 +70,23 @@ class Main(page.Page):
             # Dynamically import all of the modules in src.applications
             modules = glob.glob(os.path.join(application_folder, folder)+"/*.py")
             log.debug("Modules: %s" % modules)
+
             # the previous statement doesn't work in the compiled code
             if not modules:
-                with zipfile.ZipFile(myzip) as zipper:
-                    modules = [x for x in zipper.namelist() if r'src/applications/%s' % folder in x]
+                with zipfile.ZipFile(myzip) as z:
+                    # get the modules from library.zip
+                    modules = [x for x in z.namelist() if r'src/applications/%s' % folder in x]
 
-                    log.debug("Modules: %s" % modules)
-                    modules = [ os.path.basename(f)[:-4] for f in modules if os.path.basename(f) not in ['main.pyc', '__init__.pyc']]
-                    log.debug("Modules: %s" % modules)
-            else:
-                log.debug("Modules: %s" % modules)
-                modules = [ os.path.basename(f)[:-3] for f in modules if os.path.basename(f) not in ['main.py', '__init__.py']]
-                log.debug("Modules: %s" % modules)
+            # filter out any modules that we don't want showing up in the main menu
+            log.debug("Modules: %s" % modules)
+            modules = [ os.path.basename(f).split('.')[0] for f in modules if os.path.basename(f).split('.')[0] not in ['__init__', 'template', 'main']]
+            log.debug("Modules: %s" % modules)
+
+            #else:
+            #    log.debug("Modules: %s" % modules)
+            #    log.debug(glob.glob(os.path.join(application_folder, folder)+"/_*.py"))
+            #    modules = [ os.path.basename(f)[:-3] for f in modules if os.path.basename(f) not in ['__init__.py', 'template.py']]
+            #    log.debug("Modules: %s" % modules)
 
             row_num = 0
             col_num = 0

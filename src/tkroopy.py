@@ -18,7 +18,7 @@ log = logging.getLogger(__package__)
 import Tkinter, tkMessageBox
 
 # Import Controllers
-import main
+import applications.main as main
 
 class tKroopy(Tkinter.Tk):
     def __init__(self, basedir):
