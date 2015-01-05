@@ -91,6 +91,10 @@ class tKroopy(Tkinter.Tk):
         self.buttons[page.name] = button
 
     def change_page(self, name):
+        """
+        Change Page
+        Give a page name, will switch to the page given
+        """
         if self.current_page:
             # hide the current page
             self.pages[self.current_page].pack_forget()
@@ -118,6 +122,11 @@ class tKroopy(Tkinter.Tk):
             self.btn_forward.config(state="disabled")
 
     def back(self):
+        """
+        Back Navigation
+        When going multiple pages deep user can click the back button to head
+        towards the Main Menu.
+        """
         #log.debug('before: %s - %s' % (self.page_order, self.page_order_index))
         self.page_order_index = self.page_order.index(self.current_page)-1
         #log.debug('switch to: %s' % self.page_order[self.page_order_index])
@@ -127,6 +136,12 @@ class tKroopy(Tkinter.Tk):
 
 
     def forward(self):
+        """
+        Forward Navigation
+        When user hits the back button but wishes to go back (again) they can
+        use the forward button to go to the previous page.
+        (Currently disabled)
+        """
         #log.debug('before: %s - %s' % (self.page_order, self.page_order_index))
         self.page_order_index = self.page_order.index(self.current_page)+1
         #log.debug('switch to: %s' % self.page_order[self.page_order_index])
