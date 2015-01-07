@@ -44,7 +44,7 @@ class Page(Tkinter.Frame):
             configfile = self.name.split('.')[-1].replace(" ", "_").lower()
             xml_name = self.name.split('.')[-1].replace(" ", "_").lower()
 
-        # Load config for tab
+        # Load config for page
         try:
             import xml.etree.ElementTree as ET
             #import inspect
@@ -61,14 +61,14 @@ class Page(Tkinter.Frame):
                         # e.g. <temp_dir value='C:\Users\simpsonh\Documents\Projects\Temp' />
                         # will result in self.temp_dir = r'C:\Users\simpsonh\Documents\Projects\Temp'
                         log.debug('%s: %s' %(child.tag, child.attrib))
-                        setattr(self, child.tag, child.attrib['value']) # self -> Tab
+                        setattr(self, child.tag, child.attrib['value']) # self -> Page
                     else:
                         # tags in the root with no attributes will create instance variables of ElementTree objects
                         # e.g. <test_scripts><email>...</email></test_scripts>
                         # will result in self.test_scripts = <Element 'test_scripts' at 0x2c5c730>
                         # which can be further query the element using e.g. self.test_scripts.find('email/recipient')
                         log.debug('%s: %s' %(child.tag, child))
-                        setattr(self, child.tag, child) # self -> Tab
+                        setattr(self, child.tag, child) # self -> Page
         except IOError as e:
             log.debug(e)
 

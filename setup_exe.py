@@ -53,13 +53,15 @@ setup(
         author="James P Burke",
         license="GPL v3",
         data_files=data_files,
+        #zipfile = None,
         options = {
             'py2exe': {
+                'bundle_files': 2,
+                'compressed':True,
                 'packages': ['src', 'contrib'],
                 'includes': 'decimal',
                 'dll_excludes':['msvcr71.dll'],
                 'optimize': 0,
-                'compressed': True,
                 'dist_dir': dist_dir
             }
         }
