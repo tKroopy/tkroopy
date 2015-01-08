@@ -106,7 +106,7 @@ class Main(page.Page):
                 if app.production or bool(self.root.production):
                     # Create a frame for the app/module
                     frame_app = app(self.root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken")
-                    frame_app.pack(expand="true", fill="both")
+                    frame_app.pack(side='top', expand="true", fill="both")
 
                     log.debug("Frameapp Name: %s" % frame_app.name)
 

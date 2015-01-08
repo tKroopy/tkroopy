@@ -19,6 +19,7 @@ import Tkinter, tkMessageBox
 
 # Import Controllers
 import applications.main as main
+import modules.status_bar as status_bar
 
 class tKroopy(Tkinter.Tk):
     def __init__(self, basedir):
@@ -51,7 +52,7 @@ class tKroopy(Tkinter.Tk):
 
         # Header
         self.frame_header = Tkinter.Frame(self)
-        self.frame_header.pack(fill="both")
+        self.frame_header.pack(side="top", fill="both")
 
         # Header - buttons
         frame_header_buttons = Tkinter.Frame(self.frame_header)
@@ -75,10 +76,18 @@ class tKroopy(Tkinter.Tk):
 
         # Main - Menu
         frame_main = main.Main(self, name="Home", bg="white")
-        frame_main.pack(expand="true", fill="both")
+        frame_main.pack(side='top', expand="true", fill="both")
 
         self.add_page(frame_main, btn_main)
         self.change_page("Home")
+        
+        # Footer
+        frame_footer = Tkinter.Frame(self, height='30')
+        frame_footer.pack(side='bottom', fill='x')
+
+        # Status Bar
+        self.status = status_bar.Status_Bar(frame_footer)
+        self.status.pack(side='left')
 
     def add_page(self, page, button):
         # hide the page on init
