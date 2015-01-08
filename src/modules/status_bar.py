@@ -33,7 +33,7 @@ class Status_Bar(Tkinter.Frame):
                     except AttributeError:
                         pass
                     self.v_status.set('Status: %s' % status)
-                    self.after_id = self.after(3000, self.clear)
+                    self.after_id = self.after(2000, self.clear)
                 self.update_idletasks()
         except Queue.Empty:
             pass

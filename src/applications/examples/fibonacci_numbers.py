@@ -52,6 +52,7 @@ class Fibonacci_Numbers(page.Page):
         """
         Initiates the application when the button is clicked in the main menu
         """
+        page.Page.load(self)
 
         # Remove any previous instances of application UI
         try:

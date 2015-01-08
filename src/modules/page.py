@@ -109,6 +109,8 @@ class Page(Tkinter.Frame):
                 self.canvas.itemconfigure(interior_id, width=self.canvas.winfo_width())
         self.canvas.bind('<Configure>', _configure_canvas)
 
+    def load(self):
+        self.root.status.write('%s loaded' % self.title)
 
     def _on_mousewheel(self, event):
         #test = -1*(event.delta/120)

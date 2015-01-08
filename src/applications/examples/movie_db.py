@@ -57,6 +57,8 @@ class Movie_Db(page.Page):
         """
         Initiates the application when the button is clicked in the main menu
         """
+        page.Page.load(self)
+
         # Remove any previous instances of application UI
         try:
             self.frame_main.pack_forget()
@@ -115,6 +117,7 @@ class Add_Record(page.Page):
         """
         When the Add Record or Edit button is clicked in Movie_Db this page will be loaded
         """
+        page.Page.load(self)
         # Remove any previous instances of application UI
         try:
             self.frame_main.pack_forget()
