@@ -19,6 +19,7 @@ import Tkinter, tkMessageBox
 
 # Import Controllers
 import applications.main as main
+import modules.status_bar as status_bar
 
 class tKroopy(Tkinter.Tk):
     def __init__(self, basedir):
