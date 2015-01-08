@@ -58,6 +58,8 @@ class Movie_Db(page.Page):
         Initiates the application when the button is clicked in the main menu
         """
         # Remove any previous instances of application UI
+        self.flash.write('Movie DB YAY!')
+
         try:
             self.frame_main.pack_forget()
             self.frame_main.destroy()
