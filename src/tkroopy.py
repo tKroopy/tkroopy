@@ -19,7 +19,6 @@ import Tkinter, tkMessageBox
 
 # Import Controllers
 import applications.main as main
-import modules.flash as flash
 
 class tKroopy(Tkinter.Tk):
     def __init__(self, basedir):
@@ -30,9 +29,6 @@ class tKroopy(Tkinter.Tk):
         self.minsize(700, 400)
         self.geometry("700x550")
         self.iconbitmap(r'%s\images\tKroopy.ico' % basedir)
-
-        # Flash
-        self.flash = flash.Flash(self)
 
         # Config
         import ConfigParser, os

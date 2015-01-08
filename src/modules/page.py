@@ -35,8 +35,6 @@ class Page(Tkinter.Frame):
         self.title = None
         log.debug("# %s Application Initiated" % self.name)
 
-        self.flash = self.root.flash
-
         # Check if a config filename as passed tuple of (filename, subroot tag)
         # configfile is used in cases where an application has a super class where we want to initiate the super class config file not the subclass
         xml_name = ''
