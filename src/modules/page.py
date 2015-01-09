@@ -30,47 +30,11 @@ class Page(Tkinter.Frame):
         """
         Tkinter.Frame.__init__(self, root, bd=2, relief="sunken", *args, **kwargs)
         self.name = name
+        self.configfile = configfile
         self.root = root
         self.basedir = basedir
         self.title = None
         log.debug("# %s Application Initiated" % self.name)
-
-        # Check if a config filename as passed tuple of (filename, subroot tag)
-        # configfile is used in cases where an application has a super class where we want to initiate the super class config file not the subclass
-        xml_name = ''
-        if configfile:
-            configfile, xml_name = configfile
-        else:
-            configfile = self.name.split('.')[-1].replace(" ", "_").lower()
-            xml_name = self.name.split('.')[-1].replace(" ", "_").lower()
-
-        # Load config for page
-        try:
-            import xml.etree.ElementTree as ET
-            #import inspect
-            log.debug('------------------------------------------------')
-            log.debug(r'%s\config\%s.xml - %s' % (basedir, configfile, xml_name))
-
-            with open(r'%s\config\%s.xml' % (basedir, configfile), 'rt') as f:
-                tree = ET.parse(f)
-                root = tree.getroot()
-                # Create class variables from the config xml file
-                for child in root.find(xml_name):
-                    if child.attrib:
-                        # tags in the root with attributes will create instance variable data type value
-                        # e.g. <temp_dir value='C:\Users\simpsonh\Documents\Projects\Temp' />
-                        # will result in self.temp_dir = r'C:\Users\simpsonh\Documents\Projects\Temp'
-                        log.debug('%s: %s' %(child.tag, child.attrib))
-                        setattr(self, child.tag, child.attrib['value']) # self -> Page
-                    else:
-                        # tags in the root with no attributes will create instance variables of ElementTree objects
-                        # e.g. <test_scripts><email>...</email></test_scripts>
-                        # will result in self.test_scripts = <Element 'test_scripts' at 0x2c5c730>
-                        # which can be further query the element using e.g. self.test_scripts.find('email/recipient')
-                        log.debug('%s: %s' %(child.tag, child))
-                        setattr(self, child.tag, child) # self -> Page
-        except IOError as e:
-            log.debug(e)
 
         # create a canvas object and a vertical scrollbar for scrolling it
         vscrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
@@ -111,6 +75,43 @@ class Page(Tkinter.Frame):
 
     def load(self):
         self.root.status.write('%s loaded' % self.title)
+
+        # Check if a config filename as passed tuple of (filename, subroot tag)
+        # configfile is used in cases where an application has a super class where we want to initiate the super class config file not the subclass
+        xml_name = ''
+        if self.configfile:
+            configfile, xml_name = self.configfile
+        else:
+            configfile = self.name.split('.')[-1].replace(" ", "_").lower()
+            xml_name = self.name.split('.')[-1].replace(" ", "_").lower()
+
+        # Load config for page
+        try:
+            import xml.etree.ElementTree as ET
+            #import inspect
+            log.debug('------------------------------------------------')
+            log.debug(r'%s\config\%s.xml - %s' % (basedir, configfile, xml_name))
+
+            with open(r'%s\config\%s.xml' % (basedir, configfile), 'rt') as f:
+                tree = ET.parse(f)
+                root = tree.getroot()
+                # Create class variables from the config xml file
+                for child in root.find(xml_name):
+                    if child.attrib:
+                        # tags in the root with attributes will create instance variable data type value
+                        # e.g. <temp_dir value='C:\Users\simpsonh\Documents\Projects\Temp' />
+                        # will result in self.temp_dir = r'C:\Users\simpsonh\Documents\Projects\Temp'
+                        log.debug('%s: %s' %(child.tag, child.attrib))
+                        setattr(self, child.tag, child.attrib['value']) # self -> Page
+                    else:
+                        # tags in the root with no attributes will create instance variables of ElementTree objects
+                        # e.g. <test_scripts><email>...</email></test_scripts>
+                        # will result in self.test_scripts = <Element 'test_scripts' at 0x2c5c730>
+                        # which can be further query the element using e.g. self.test_scripts.find('email/recipient')
+                        log.debug('%s: %s' %(child.tag, child))
+                        setattr(self, child.tag, child) # self -> Page
+        except IOError as e:
+            log.debug(e)
 
     def _on_mousewheel(self, event):
         #test = -1*(event.delta/120)

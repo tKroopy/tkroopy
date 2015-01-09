@@ -1,18 +1,20 @@
 from Tkinter import *
 import re
 import logging
+from contrib.pydal import DAL, Field
 
 log = logging.getLogger(__package__)
-
-import src.modules.dal as dal
+db2 = None
 
 class Search(Entry):
-    def __init__(self, root, db, queries, command, *args, **kwargs):
+    def __init__(self, root, db, queries=(), command=None, *args, **kwargs):
 
         Entry.__init__(self, root, *args, **kwargs)
         self.db = db
+        self.root = root
         self.queries = queries
 
+        log.debug(self.winfo_reqwidth())
         self.result = StringVar()
         self.result.trace('w', command)
 
@@ -43,17 +45,21 @@ class Search(Entry):
                 results = self.comparison()
                 if results:
                     if not self.lb_up:
-                        self.lb = Listbox(width=60)
+                        self.lb = Listbox(width=int(float(self.winfo_reqwidth())*0.165)) #
                         self.lb.bind("<Double-Button-1>", self.selection)
                         self.lb.bind("<Right>", self.selection)
-                        self.lb.place(relx=0.5, x=-215, y=self.winfo_y()+self.winfo_height()+5)
+                        #relx=0.5, y=self.winfo_y()+self.winfo_height()+5
+                        self.lb.place(in_=self.root, x=self.winfo_x()-3, y=self.winfo_y()+3) #relx=0.5, x=-215,
 
                         self.lb_up = True
                     self.results = results
                     self.lb.delete(0, END)
 
                     for w in results:
-                        self.lb.insert(END,w[1])
+                        try:
+                            self.lb.insert(END,w[1])
+                        except AttributeError:
+                            self.lb.insert(END, w)
 
                 else:
                     if self.lb_up:
@@ -116,20 +122,17 @@ class Search(Entry):
                 self.lb.activate(index)
 
     def comparison(self):
+        db = self.db
         results = []
-        for query in self.queries:
-            results += self.db.select(query.replace('[search]',self.var.get().replace(' ', '')))
-        return results # self.words =
+        log.debug(self.queries)
+        for query, fields in self.queries:
+            # convert rows into lists of values [[1, 'Clerks.']] etc
+            results += [item.values() for item in db(query.contains(self.var.get())).select(*fields).as_list()]
+        log.debug(results)
+        return results
 
 
 if __name__ == '__main__':
+    # No example yet!
     root = Tk()
-
-    lista = ['test', 'test1', 'test2', 'test3']
-    entry = Search(lista, root)
-    entry.grid(row=0, column=0)
-    Button(text='nothing').grid(row=1, column=0)
-    Button(text='nothing').grid(row=2, column=0)
-    Button(text='nothing').grid(row=3, column=0)
-
     root.mainloop()

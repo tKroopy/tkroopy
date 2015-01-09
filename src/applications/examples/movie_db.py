@@ -13,6 +13,7 @@ if '__file__' in globals():
 
 import src.modules.page as page
 import src.modules.table as table
+import src.modules.search as search
 from contrib.pydal import DAL, Field
 
 db = page.Page.db
@@ -70,8 +71,34 @@ class Movie_Db(page.Page):
         self.frame_main = Tkinter.Frame(self.interior)
         self.frame_main.pack()
 
-        # Any code here will be run when the application is initialised i.e. clicked on.
-        data = db(db.movie.id>0).select()
+        # queries can be a list of tuples so you can search on multiple tables
+        queries = []  # tuple(table to query , tuple(id, display_value))
+        queries.append((db.movie.title, (db.movie.id, db.movie.title)))
+
+        frame_search = Tkinter.LabelFrame(self.frame_main, text='Search')
+        frame_search.pack(side='left', anchor='nw', fill='both')
+
+        self.search_result = search.Search(frame_search, db=db, queries=queries, command=self.search, width=50)
+        self.search_result.pack(side='left', anchor='nw')
+
+        button_clear = Tkinter.Button(frame_search, text='Clear', command=self.load_table)
+        button_clear.pack(side='right')
+
+        self.load_table()
+
+    def load_table(self, movie_id=0):
+        try:
+            self.frame_table.pack_forget()
+            self.frame_table.destroy()
+        except:
+            pass
+        self.frame_table = Tkinter.Frame(self.interior)
+        self.frame_table.pack()
+
+        if movie_id:
+            data = db(db.movie.id==movie_id).select()
+        else:
+            data = db(db.movie.id>0).select()
 
         # Add record
         def add_record():
@@ -81,7 +108,7 @@ class Movie_Db(page.Page):
             self.root.add_page(frame_movie, None)
             self.root.change_page('examples.movie_db.Add_Record')
 
-        btn_add = Tkinter.Button(self.frame_main, text='Add Record', command=add_record)
+        btn_add = Tkinter.Button(self.frame_table, text='Add Record', command=add_record)
         btn_add.pack(anchor='w')
 
         def remove_record(id):
@@ -99,8 +126,12 @@ class Movie_Db(page.Page):
 
         # display the data in a table/grid view
         buttons = [dict(text='Edit', function=lambda row: edit_record(row['id'])), dict(text='Delete', function=lambda row: remove_record(row['id']))]
-        grid_top_ten = table.Table(self.frame_main, data=data, buttons=buttons)
+        grid_top_ten = table.Table(self.frame_table, data=data, buttons=buttons)
         grid_top_ten.pack()
+
+    def search(self, *args):
+        log.debug(self.search_result.result.get())
+        self.load_table(movie_id=self.search_result.result.get())
 
 
 class Add_Record(page.Page):
