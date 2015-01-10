@@ -30,8 +30,8 @@ import Tkinter
 import Queue
 
 class Status_Bar(Tkinter.Frame):
-    def __init__(self, master, **options):
-        Tkinter.Frame.__init__(self, master)
+    def __init__(self, master, **kwargs):
+        Tkinter.Frame.__init__(self, master, **kwargs)
 
         # Status
         self.v_status = Tkinter.StringVar()

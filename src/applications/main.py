@@ -26,7 +26,7 @@ class Main(page.Page):
     """
     Main menu for tKroopy applications
     """
-    def __init__(self, root, name, *args, **kwargs):
+    def __init__(self, root, name, **kwargs):
         """
         root    : root Tkinter class
         name      : Name of the page, must be unique as it's used to switch to the page
@@ -37,7 +37,7 @@ class Main(page.Page):
 
         Applications are stored in a hierarchical structure in the Applications directory.
         """
-        page.Page.__init__(self, root, name, *args, **kwargs)
+        page.Page.__init__(self, root, name, **kwargs)
 
         # Page controll or window control
         self.title = 'Main Menu'

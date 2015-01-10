@@ -11,8 +11,11 @@
 #-------------------------------------------------------------------------------
 
 from Tkinter import *
+import logging
 
-class Hyperlink:
+log = logging.getLogger(__package__)
+
+class Hyperlink(object):
 
     def __init__(self, text):
 
@@ -64,12 +67,12 @@ class Hyperlink:
 import Queue
 
 class Console(Frame):
-    def __init__(self, master, **options):
+    def __init__(self, master, **kwargs):
         Frame.__init__(self, master)
 
         scrollbar = Scrollbar(self)
         scrollbar.pack(side='right', fill='y')
-        self.text = Text(self, wrap='word', yscrollcommand=scrollbar.set, **options)
+        self.text = Text(self, wrap='word', yscrollcommand=scrollbar.set, **kwargs)
         self.text.pack()
         self.text.config(state='disabled')
         self.link = Hyperlink(self.text)
@@ -88,8 +91,10 @@ class Console(Frame):
                 self.text.config(state='normal')
                 if line is None:
                     self.text.delete(1.0, END)
-                else:
+                elif link and link[0] == 'hyper':
                     self.text.insert(END, str(line), link)
+                else:
+                    self.text.insert(END, str(line))
                 self.text.see(END)
                 self.update_idletasks()
                 self.text.config(state='disabled')

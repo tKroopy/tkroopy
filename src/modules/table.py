@@ -37,7 +37,7 @@ log = logging.getLogger(__package__)
 
 class Table(Tkinter.Frame):
 
-    def __init__(self, parent, data, header=True, links=[], buttons=[], pagination=0, *args, **kwargs):
+    def __init__(self, parent, data, header=True, links=[], buttons=[], pagination=0, **kwargs):
         """
         header: bool - first row header names
         data: list of list - data to display
@@ -46,7 +46,7 @@ class Table(Tkinter.Frame):
         buttons: list of dict - (header=button label, function=lambda expression)
         pagination: integer - number of rows for each page
         """
-        Tkinter.Frame.__init__(self, parent, *args, **kwargs)
+        Tkinter.Frame.__init__(self, parent, **kwargs)
 
         self.parent = parent
         self.data = data

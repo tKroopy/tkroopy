@@ -3,7 +3,6 @@
 # References
 # -----------------------------
 # - Tkinter class :: http://sebsauvage.net/python/gui/
-# - MVC Influence :: https://bitbucket.org/driscollis/medialocker
 # - Pages :: http://code.activestate.com/recipes/577261-python-tkinter-tabs/
 # - Hyperlink :: http://effbot.org/zone/tkinter-text-hyperlink.htm
 # - scrollbars :: http://stackoverflow.com/questions/9561030/vertical-and-horizontal-scrollbars-on-tkinter-widget
@@ -80,7 +79,7 @@ class tKroopy(Tkinter.Tk):
 
         self.add_page(frame_main, btn_main)
         self.change_page("Home")
-        
+
         # Footer
         frame_footer = Tkinter.Frame(self, height='30')
         frame_footer.pack(side='bottom', fill='x')
