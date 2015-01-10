@@ -5,7 +5,9 @@
 # Author:      Fredrik Lundh
 #
 # Created:     25/10/2000
+#
 # Copyright:   (c) Fredrik Lundh 2000
+# Source:      http://effbot.org/zone/tkinter-text-hyperlink.htm
 #-------------------------------------------------------------------------------
 
 from Tkinter import *
@@ -47,8 +49,8 @@ class Hyperlink:
                 return
 
 #-------------------------------------------------------------------------------
-# Name:        ThreadSafeConsole
-# Purpose:
+# Name:        Console (originally named ThreadSafeConsole)
+# Purpose:     Create a Text widget which can be output to in a thread
 #
 # Author:      Fredrik Lundh
 #
@@ -56,6 +58,7 @@ class Hyperlink:
 # Modified:    26/12/2014 - James Burke
 #
 # Copyright:   (c) Fredrik Lundh 2002
+# Source:      http://effbot.org/zone/tkinter-threads.htm
 #-------------------------------------------------------------------------------
 
 import Queue
