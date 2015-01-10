@@ -5,7 +5,7 @@
 #
 # Author:      Miguel Angel Alarcos Torrecillas
 # Created:     6/09/2012
-# Modified:    9/01/2015 jburke
+# Modified:    9/01/2015 James P Burke
 #
 # Copyright    (c) Miguel Angel Alarcos Torrecillas 2012
 # Licence:     MIT

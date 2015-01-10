@@ -58,7 +58,7 @@ class Hyperlink(object):
 # Author:      Fredrik Lundh
 #
 # Created:     13/02/2002
-# Modified:    26/12/2014 - James Burke
+# Modified:    26/12/2014 - James P Burke
 #
 # Copyright:   (c) Fredrik Lundh 2002
 # Source:      http://effbot.org/zone/tkinter-threads.htm

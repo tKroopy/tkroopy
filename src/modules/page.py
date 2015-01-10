@@ -6,7 +6,7 @@
 # Author:      Sunjay Varma
 #
 # Created:     13/05/2010
-# Modified:    jburke
+# Modified:    9/01/2014 James P Burke
 #
 # Copyright:   (c) Sunjay Varma 2010
 # Licence:     MIT
