@@ -28,6 +28,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #-------------------------------------------------------------------------------
+# Other sources
+# - scrollbars :: http://stackoverflow.com/questions/9561030/vertical-and-horizontal-scrollbars-on-tkinter-widget
+#-------------------------------------------------------------------------------
 import Tkinter
 import logging
 import os, sys

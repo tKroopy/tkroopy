@@ -78,7 +78,7 @@ class Movie_Db(page.Page):
         frame_search = Tkinter.LabelFrame(self.frame_main, text='Search')
         frame_search.pack(side='left', anchor='nw', fill='both')
 
-        self.search_result = search.Search(frame_search, db=db, queries=queries, command=self.search, width=50)
+        self.search_result = search.Search(frame_search, queries=queries, command=self.search, width=50) #, db=db
         self.search_result.pack(side='left', anchor='nw')
 
         button_clear = Tkinter.Button(frame_search, text='Clear', command=self.load_table)

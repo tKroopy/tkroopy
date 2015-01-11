@@ -31,15 +31,16 @@ from Tkinter import *
 import re
 import logging
 from contrib.pydal import DAL, Field
+import src.modules.page as page
 
 log = logging.getLogger(__package__)
-db2 = None
+db = page.Page.db
 
 class Search(Entry):
-    def __init__(self, root, db, queries=(), command=None, **kwargs):
+    def __init__(self, root, queries=(), command=None, **kwargs):
 
         Entry.__init__(self, root, **kwargs)
-        self.db = db
+        #self.db = db
         self.root = root
         self.queries = queries
 
@@ -151,7 +152,7 @@ class Search(Entry):
                 self.lb.activate(index)
 
     def comparison(self):
-        db = self.db
+        #db = self.db
         results = []
         log.debug(self.queries)
         for query, fields in self.queries:

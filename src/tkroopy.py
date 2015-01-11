@@ -5,7 +5,6 @@
 # - Tkinter class :: http://sebsauvage.net/python/gui/
 # - Pages :: http://code.activestate.com/recipes/577261-python-tkinter-tabs/
 # - Hyperlink :: http://effbot.org/zone/tkinter-text-hyperlink.htm
-# - scrollbars :: http://stackoverflow.com/questions/9561030/vertical-and-horizontal-scrollbars-on-tkinter-widget
 # - tkFileDialog :: http://tkinter.unpythonic.net/wiki/tkFileDialog
 # -----------------------------
 
