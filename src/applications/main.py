@@ -26,7 +26,7 @@ class Main(page.Page):
     """
     Main menu for tKroopy applications
     """
-    def __init__(self, root, name, **kwargs):
+    def __init__(self, root, name, *args, **kwargs):
         """
         root    : root Tkinter class
         name      : Name of the page, must be unique as it's used to switch to the page
@@ -37,7 +37,7 @@ class Main(page.Page):
 
         Applications are stored in a hierarchical structure in the Applications directory.
         """
-        page.Page.__init__(self, root, name, **kwargs)
+        page.Page.__init__(self, root, name, *args, **kwargs)
 
         # Page controll or window control
         self.title = 'Main Menu'
@@ -102,10 +102,10 @@ class Main(page.Page):
                 app = getattr(module, class_name)
 
                 # Check if the App has been productionised or running development version
-                log.debug(self.root.production)
-                if app.production or bool(self.root.production):
+                log.debug(root.production)
+                if app.production or bool(root.production):
                     # Create a frame for the app/module
-                    frame_app = app(self.root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken")
+                    frame_app = app(root, name='%s.%s' % (folder, class_name), bd=2, relief="sunken")
                     frame_app.pack(side='top', expand="true", fill="both")
 
                     log.debug("Frameapp Name: %s" % frame_app.name)
@@ -115,7 +115,7 @@ class Main(page.Page):
                         """
                         Call Back: switches page to the application frame and loads the application
                         """
-                        self.root.change_page(frame_app.name)
+                        root.change_page(frame_app.name)
                         #frame_app.load()
 
 
@@ -130,7 +130,7 @@ class Main(page.Page):
                     btn_app.grid(row=row_num, column=col_num, padx=10, pady=10)
 
                     # Create a new page
-                    self.root.add_page(frame_app, btn_app)
+                    root.add_page(frame_app, btn_app)
 
                     # Positioning of buttons
                     # 8 per row

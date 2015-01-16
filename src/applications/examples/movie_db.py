@@ -25,9 +25,9 @@ class Movie_Db(page.Page):
     """
     production = False
 
-    def __init__(self, root, name, *args, **kwargs): #, basedir
+    def __init__(self, parent, name, *args, **kwargs):
 
-        page.Page.__init__(self, root, name) #, basedir
+        page.Page.__init__(self, parent, name)
 
         # Displayed in the main menu
         self.title = 'Movie Database'
@@ -102,11 +102,11 @@ class Movie_Db(page.Page):
 
         # Add record
         def add_record():
-            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record') #, self.basedir
+            frame_movie = Add_Record(self.parent, 'examples.movie_db.Add_Record')
             frame_movie.pack(expand="true", fill="both")
 
-            self.root.add_page(frame_movie, None)
-            self.root.change_page('examples.movie_db.Add_Record')
+            self.parent.add_page(frame_movie, None)
+            self.parent.change_page('examples.movie_db.Add_Record')
 
         btn_add = Tkinter.Button(self.frame_table, text='Add Record', command=add_record)
         btn_add.pack(anchor='w')
@@ -118,11 +118,11 @@ class Movie_Db(page.Page):
 
         def edit_record(record_id):
             log.debug(record_id)
-            frame_movie = Add_Record(self.root, 'examples.movie_db.Add_Record', record_id) #, self.basedir
+            frame_movie = Add_Record(self.parent, 'examples.movie_db.Add_Record', record_id)
             frame_movie.pack(expand="true", fill="both")
 
-            self.root.add_page(frame_movie, None)
-            self.root.change_page('examples.movie_db.Add_Record')
+            self.parent.add_page(frame_movie, None)
+            self.parent.change_page('examples.movie_db.Add_Record')
 
         # display the data in a table/grid view
         buttons = [dict(text='Edit', function=lambda row: edit_record(row['id'])), dict(text='Delete', function=lambda row: remove_record(row['id']))]
@@ -138,9 +138,9 @@ class Add_Record(page.Page):
     """
     Creates a new tab to allow the use to create/edit the movie record
     """
-    def __init__(self, root, name, record_id=None, *args, **kwargs): #, basedir
+    def __init__(self, parent, name, record_id=None, *args, **kwargs):
 
-        page.Page.__init__(self, root, name) #, basedir
+        page.Page.__init__(self, parent, name)
 
         self.record_id = record_id
 
@@ -190,7 +190,7 @@ class Add_Record(page.Page):
             db.commit()
 
             # change back to the Movie_Db page
-            self.root.change_page('examples.Movie_Db')
+            self.parent.change_page('examples.Movie_Db')
 
         Tkinter.Button(self.frame_main, text='Save', command=save_record).grid(column=0, row=i+1)
 

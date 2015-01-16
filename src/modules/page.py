@@ -47,9 +47,9 @@ class Page(Tkinter.Frame):
 
     db = DAL('sqlite://storage.db', folder=os.path.join(basedir, 'database'))
 
-    def __init__(self, root, name='test', configfile=(), *args, **kwargs):
+    def __init__(self, parent, name='test', configfile=(), *args, **kwargs):
         """
-        root    : root Tkinter class
+        parent    : parent Tkinter class
         name      : Name of the tab, must be unique as it's used to switch to the tab
         configfile: Tuple of (filename, subroot tag)
         -----------------------------------------------------------------------------
@@ -60,10 +60,10 @@ class Page(Tkinter.Frame):
         - Defines class variables from application config file
         - Creates a vertical scroll bar for the application
         """
-        Tkinter.Frame.__init__(self, root, bd=2, relief="sunken", *args, **kwargs)
+        Tkinter.Frame.__init__(self, parent, bd=2, relief="sunken", *args, **kwargs)
         self.name = name
         self.configfile = configfile
-        self.root = root
+        self.parent = parent
         self.basedir = basedir
         self.title = None
         log.debug("# %s Application Initiated" % self.name)
@@ -106,7 +106,10 @@ class Page(Tkinter.Frame):
         self.canvas.bind('<Configure>', _configure_canvas)
 
     def load(self):
-        self.root.status.write('%s loaded' % self.title)
+        try:
+            self.parent.status.write('%s loaded' % self.title)
+        except AttributeError:
+            pass
 
         # Check if a config filename as passed tuple of (filename, subroot tag)
         # configfile is used in cases where an application has a super class where we want to initiate the super class config file not the subclass
