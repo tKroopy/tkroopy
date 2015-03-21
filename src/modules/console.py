@@ -77,12 +77,16 @@ class Console(Frame):
         self.text.config(state='disabled')
         self.link = Hyperlink(self.text)
 
+        self.sequence = ['-', '\\', '|', '/']
+        self.load = False
+
         self.queue = Queue.Queue()
         self.update_me()
     def write(self, line, link=None):
         self.queue.put((line,link))
     def clear(self):
         self.queue.put((None, None))
+
     def update_me(self):
         try:
             while 1:
@@ -93,14 +97,27 @@ class Console(Frame):
                     self.text.delete(1.0, END)
                 elif link and link[0] == 'hyper':
                     self.text.insert(END, str(line), link)
+                elif link and link == 'loader':
+                    self.load = True
+                    self.text.delete(self.text.index("end-2c"))
+                    self.text.insert(self.text.index("end-1c"), str(line))
+                    #print self.text.index("end-1c"), str(line)
                 else:
-                    self.text.insert(END, str(line))
+                    if self.load:
+                        self.text.delete(self.text.index("end-2c"))
+                        self.text.insert(self.text.index("end-1c"), str(line))
+                    else:
+                        self.text.insert(END, str(line))
+                    self.load = False
                 self.text.see(END)
                 self.update_idletasks()
                 self.text.config(state='disabled')
         except Queue.Empty:
             pass
         self.after(100, self.update_me)
+        if self.load:
+            self.queue.put((self.sequence[0], 'loader'))
+            self.sequence.append(self.sequence.pop(0))
 
 if __name__ == '__main__':
     # testing application
@@ -110,14 +127,16 @@ if __name__ == '__main__':
     console.pack()
 
     def count():
-        for i in range(0, 10):
-            console.write('%s\n' % i)
-            time.sleep(0.1)
+        console.write('Loading World...', 'loader')
+        console.write('\nLoading World...', 'loader')
+        console.write('\nLoading World...', 'loader')
+        time.sleep(3)
+        console.write('Done')
 
         def click1():
             print "click 1"
 
-        console.write("this is a ")
+        console.write("\nthis is a ")
         console.write("link", console.link.add(click1))
         console.write("\n\n")
 

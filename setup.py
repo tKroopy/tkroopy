@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-#
-
-from setuptools import setup
-import py2exe
+from distutils.core import setup
+import py2exe, innosetup
 from glob import glob
 import sys, shutil, os, zipfile
 import datetime
@@ -45,26 +43,38 @@ else:
                 zf.write(os.path.join(root, file1), os.path.relpath(os.path.join(root, file1), os.path.join(path, '..')))
                 print 'Arciving: %s' % os.path.join(root, file1)
 
-# This setup is suitable for "python setup.py develop".
+# All options are same as py2exe options.
 setup(
-        windows=[{'script':'tkroopy.py',
+    name='tKroopy',
+    version='1.0b',
+    license='GPL v3',
+    author='James P Burke',
+    author_email='you@your.domain',
+    description='description',
+    url='http://www.your.domain/example', # generate AppId from this url
+    windows=[{'script':'tkroopy.py',
                     'icon_resources': [(1, 'images/tKroopy.ico')]}],
-        description="tkroopy tkinter framework",
-        author="James P Burke",
-        license="GPL v3",
-        data_files=data_files,
-        #zipfile = None,
-        options = {
-            'py2exe': {
-                'bundle_files': 2,
-                'compressed':True,
-                'packages': ['src', 'contrib'],
-                'includes': 'decimal',
-                #'dll_excludes':['msvcr71.dll'],
-                'optimize': 0,
-                'dist_dir': dist_dir
+    options={
+        'py2exe': {
+            # `innosetup` gets the `py2exe`'s options.
+            'compressed': True,
+            'optimize': 0,
+            'bundle_files': 3,
+            },
+        'innosetup': {
+            # user defined iss file path or iss string
+            'inno_script': innosetup.DEFAULT_ISS, # default is ''
+            # bundle msvc files
+            'bundle_vcr': True, # default is True
+            # zip setup file
+            'zip': False, # default is False, bool() or zip file name
+            # create shortcut to startup if you want.
+            'regist_startup': True, # default is False
             }
-        }
-)
-
-shutil.rmtree(r'%s/build' % source)
+        },
+    #com_server=[
+    #    {'modules': ['src'], 'create_exe': True},
+    #    ],
+    data_files=data_files,
+    # and other metadata ...
+    )

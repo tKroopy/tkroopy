@@ -33,8 +33,11 @@ if __name__ == "__main__":
     except:
         log.error('Freeze Support Error')
 
-    app = tkroopy.tKroopy(basedir)
-    app.mainloop()
+    try:
+        app = tkroopy.tKroopy(basedir)
+        app.mainloop()
+    except Exception as e:
+        log.error(e, exc_info=True)
     sys.exit()
 
 # ------ END OF FILE ----
